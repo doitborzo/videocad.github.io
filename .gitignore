@@ -1,0 +1,6 @@
+.env
+videocad_onshape.toml
+runs/
+__pycache__/
+.pytest_cache/
+

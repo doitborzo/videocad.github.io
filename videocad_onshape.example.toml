@@ -1,0 +1,40 @@
+[planner]
+provider = "openai-compatible"
+model = "gpt-4.1-mini"
+api_key = "replace-me"
+base_url = "https://api.openai.com/v1/chat/completions"
+timeout_seconds = 30
+temperature = 0
+
+[browser]
+backend = "playwright"
+profile_path = "~/Library/Application Support/Google/Chrome-VideoCAD"
+profile_name = "Profile 1"
+blank_part_studio_url = "https://cad.onshape.com/"
+headless = false
+
+[model]
+backend = "runpod"
+runpod_endpoint_id = "YOUR_RUNPOD_ENDPOINT_ID"
+runpod_base_url = "https://api.runpod.ai/v2"
+runpod_timeout_seconds = 120
+
+[window]
+x = 40
+y = 60
+width = 1600
+height = 1000
+
+[safety]
+emergency_stop_hotkey = "ctrl+c"
+max_actions_per_step = 40
+max_retries_per_action_class = 5
+stall_delta_threshold = 1.0
+stall_patience = 4
+geometry_tolerance_px = 6.0
+min_inter_action_delay_sec = 0.2
+target_similarity_threshold = 0.82
+post_action_change_threshold = 0.75
+
+[paths]
+output_dir = "runs"

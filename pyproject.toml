@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "videocad-onshape"
+version = "0.1.0"
+description = "CLI runtime for constrained autonomous Onshape execution with VideoCADFormer."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy",
+  "Pillow",
+]
+
+[project.optional-dependencies]
+live = [
+  "playwright",
+]
+
+[project.scripts]
+videocad-onshape = "videocad_onshape.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,10 @@
+runpod
+gdown
+numpy
+Pillow
+torch
+torchvision
+transformers
+timm
+vit-pytorch
+
