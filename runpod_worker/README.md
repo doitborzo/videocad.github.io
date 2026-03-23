@@ -13,7 +13,7 @@ This worker hosts VideoCADFormer inference for the local `videocad-onshape` CLI.
 - `VIDEOCAD_RUNPOD_MODEL_NAME`
   - Default: `cad_past_10_actions_and_states_timestep_embedding`
 - `VIDEOCAD_RUNPOD_MODEL_CONFIG_PATH`
-  - Default: `/app/external/VideoCAD/model_configs/transformer_experiments.json`
+  - Default: `/app/src/videocad_onshape/vendor/model_configs/transformer_experiments.json`
 - `VIDEOCAD_RUNPOD_DEVICE`
   - Usually `cuda` on a GPU worker.
 

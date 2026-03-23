@@ -5,7 +5,6 @@ from pathlib import Path
 import base64
 import json
 import os
-import sys
 
 import numpy as np
 from PIL import Image
@@ -46,12 +45,7 @@ class VideoCADInferenceEngine:
         except Exception as exc:  # noqa: BLE001
             raise ConfigurationError(f"PyTorch is not available: {exc}") from exc
 
-        repo_root = Path(__file__).resolve().parents[2]
-        videocad_root = repo_root / "external/VideoCAD"
-        if str(videocad_root) not in sys.path:
-            sys.path.insert(0, str(videocad_root))
-
-        from model.autoregressive_transformer import AutoRegressiveTransformer  # type: ignore
+        from videocad_onshape.vendor.model.autoregressive_transformer import AutoRegressiveTransformer
 
         with self.settings.model_config_path.open("r", encoding="utf-8") as fh:
             config_map = json.load(fh)
@@ -125,7 +119,7 @@ def build_inference_settings_from_env() -> InferenceSettings:
     model_config_path = Path(
         os.getenv(
             "VIDEOCAD_RUNPOD_MODEL_CONFIG_PATH",
-            "/app/external/VideoCAD/model_configs/transformer_experiments.json",
+            "/app/src/videocad_onshape/vendor/model_configs/transformer_experiments.json",
         )
     )
     model_name = os.getenv("VIDEOCAD_RUNPOD_MODEL_NAME", "cad_past_10_actions_and_states_timestep_embedding")

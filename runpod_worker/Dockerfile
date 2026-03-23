@@ -15,10 +15,7 @@ RUN python -m pip install --upgrade pip && \
     python -m pip install --no-cache-dir -r /app/runpod_worker/requirements.txt
 
 COPY src /app/src
-COPY external/VideoCAD/model /app/external/VideoCAD/model
-COPY external/VideoCAD/model_configs /app/external/VideoCAD/model_configs
 COPY runpod_worker /app/runpod_worker
 
-ENV PYTHONPATH=/app/src:/app/external/VideoCAD
+ENV PYTHONPATH=/app/src
 CMD ["python", "-u", "/app/runpod_worker/handler.py"]
-
