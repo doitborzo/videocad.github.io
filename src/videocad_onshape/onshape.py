@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from io import BytesIO
 from pathlib import Path
 from typing import Protocol
@@ -8,6 +7,7 @@ from typing import Protocol
 from PIL import Image
 
 from .calibration import CanvasCalibration, build_calibration
+from .compat import dataclass
 from .config import BrowserSettings, WindowGeometry
 from .errors import ConfigurationError, LiveRuntimeError
 
@@ -29,7 +29,7 @@ class OnshapeSession(Protocol):
         ...
 
 
-@dataclass(slots=True)
+@dataclass
 class PlaywrightOnshapeSession:
     settings: BrowserSettings
     _playwright: object | None = None

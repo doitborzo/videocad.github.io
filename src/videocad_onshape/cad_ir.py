@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import field
 from typing import Any
 
+from .compat import dataclass
 from .errors import UnsupportedPromptError
 
 DRAWING_OPS = {"draw_rectangle", "draw_circle", "draw_line", "add_dimension"}
@@ -39,7 +40,7 @@ def _require_number(step: str, name: str, value: Any) -> float:
         raise UnsupportedPromptError(f"{step}.{name} must be numeric.") from exc
 
 
-@dataclass(slots=True)
+@dataclass
 class IRStep:
     op: str
     params: dict[str, Any] = field(default_factory=dict)
@@ -95,7 +96,7 @@ class IRStep:
         return {"op": self.op, "params": self.params}
 
 
-@dataclass(slots=True)
+@dataclass
 class CADProgram:
     prompt: str
     steps: list[IRStep]
@@ -186,4 +187,3 @@ class CADProgram:
 
     def to_dict(self) -> dict[str, Any]:
         return {"prompt": self.prompt, "steps": [step.to_dict() for step in self.steps]}
-

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from typing import Any
 
 from .action_codec import ActionCodec
 from .artifacts import ArtifactManager
+from .compat import dataclass
 from .config import AppConfig
 from .controller import AutonomousController, ExecutionSummary
 from .native import DryRunNativeExecutor, MacOSNativeExecutor
@@ -14,7 +15,7 @@ from .renderer import CanonicalRenderer
 from .videocad import build_predictor
 
 
-@dataclass(slots=True)
+@dataclass
 class HealthcheckItem:
     name: str
     ok: bool
@@ -24,7 +25,7 @@ class HealthcheckItem:
         return asdict(self)
 
 
-@dataclass(slots=True)
+@dataclass
 class HealthcheckResult:
     items: list[HealthcheckItem]
 

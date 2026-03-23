@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import field
 from math import cos, pi, sin
-from typing import Iterable
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 from .cad_ir import CADProgram, IRStep
+from .compat import dataclass
 
 IMAGE_SIZE = 224
 BACKGROUND = (247, 246, 240)
@@ -19,14 +19,14 @@ CUT_EDGE = (178, 80, 73)
 ANNOTATION = (70, 70, 70)
 
 
-@dataclass(slots=True)
+@dataclass
 class SketchPrimitive:
     kind: str
     plane: str
     params: dict[str, float | str]
 
 
-@dataclass(slots=True)
+@dataclass
 class SolidFeature:
     kind: str
     plane: str
@@ -35,7 +35,7 @@ class SolidFeature:
     operation: str
 
 
-@dataclass(slots=True)
+@dataclass
 class SceneState:
     active_plane: str = "front"
     active_sketch: list[SketchPrimitive] = field(default_factory=list)
@@ -45,7 +45,7 @@ class SceneState:
     extent_hint: float = 40.0
 
 
-@dataclass(slots=True)
+@dataclass
 class RenderedStep:
     index: int
     step: IRStep
@@ -225,4 +225,3 @@ class CanonicalRenderer:
             draw.line(projected + [projected[0]], fill=color, width=2)
         else:
             draw.polygon(projected, outline=color)
-

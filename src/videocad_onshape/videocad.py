@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from io import BytesIO
 from typing import Any, Protocol
 import base64
@@ -11,6 +10,7 @@ import urllib.request
 from PIL import Image
 
 from .action_codec import RawModelAction, StepContext
+from .compat import dataclass
 from .config import ModelSettings
 from .errors import ConfigurationError
 
@@ -35,7 +35,7 @@ def _encode_image(image: Image.Image) -> str:
     return base64.b64encode(buffer.getvalue()).decode("ascii")
 
 
-@dataclass(slots=True)
+@dataclass
 class RunpodPredictor:
     settings: ModelSettings
 

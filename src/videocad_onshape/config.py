@@ -1,10 +1,15 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, field
 from pathlib import Path
 from typing import Any
 import os
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover
+    import tomli as tomllib  # type: ignore
+
+from .compat import dataclass
 
 
 def _project_root() -> Path:
@@ -65,7 +70,7 @@ def _coerce_bool(value: str) -> bool:
     return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
-@dataclass(slots=True)
+@dataclass
 class WindowGeometry:
     x: int = 40
     y: int = 60
@@ -73,7 +78,7 @@ class WindowGeometry:
     height: int = 1000
 
 
-@dataclass(slots=True)
+@dataclass
 class Rect:
     x: int
     y: int
@@ -81,7 +86,7 @@ class Rect:
     height: int
 
 
-@dataclass(slots=True)
+@dataclass
 class PlannerSettings:
     provider: str = "openai-compatible"
     model: str = "gpt-4.1-mini"
@@ -91,7 +96,7 @@ class PlannerSettings:
     temperature: float = 0.0
 
 
-@dataclass(slots=True)
+@dataclass
 class BrowserSettings:
     backend: str = "playwright"
     profile_path: Path | None = None
@@ -102,7 +107,7 @@ class BrowserSettings:
     canvas_override: Rect | None = None
 
 
-@dataclass(slots=True)
+@dataclass
 class ModelSettings:
     backend: str = "runpod"
     runpod_endpoint_id: str | None = None
@@ -111,7 +116,7 @@ class ModelSettings:
     runpod_timeout_seconds: float = 120.0
 
 
-@dataclass(slots=True)
+@dataclass
 class SafetySettings:
     emergency_stop_hotkey: str = "ctrl+c"
     max_actions_per_step: int = 40
@@ -124,12 +129,12 @@ class SafetySettings:
     post_action_change_threshold: float = 0.75
 
 
-@dataclass(slots=True)
+@dataclass
 class PathsSettings:
     output_dir: Path = field(default_factory=lambda: _project_root() / "runs")
 
 
-@dataclass(slots=True)
+@dataclass
 class AppConfig:
     config_path: Path | None = None
     planner: PlannerSettings = field(default_factory=PlannerSettings)

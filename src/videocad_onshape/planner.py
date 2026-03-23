@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from typing import Any, Protocol
 import json
 import re
@@ -8,6 +7,7 @@ import urllib.error
 import urllib.request
 
 from .cad_ir import CADProgram
+from .compat import dataclass
 from .config import PlannerSettings
 from .errors import ConfigurationError, UnsupportedPromptError
 
@@ -82,7 +82,7 @@ def guard_prompt(prompt: str) -> None:
         raise UnsupportedPromptError("Prompt is ambiguous: at least one explicit dimension is required.")
 
 
-@dataclass(slots=True)
+@dataclass
 class OpenAICompatiblePlanner:
     settings: PlannerSettings
 
@@ -138,7 +138,7 @@ class OpenAICompatiblePlanner:
         return True, "planner API reachable"
 
 
-@dataclass(slots=True)
+@dataclass
 class RuleBasedPlanner:
     settings: PlannerSettings | None = None
 
@@ -216,4 +216,3 @@ def build_planner(settings: PlannerSettings) -> Planner:
     if settings.provider == "mock":
         return RuleBasedPlanner(settings=settings)
     return OpenAICompatiblePlanner(settings=settings)
-

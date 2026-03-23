@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from signal import SIGINT, SIGTERM, signal
 from time import sleep
 from typing import Any
@@ -12,13 +12,14 @@ from .action_codec import ActionCodec, DecodedAction, StepContext
 from .artifacts import ArtifactManager
 from .cad_ir import CADProgram, IRStep
 from .calibration import CanvasCalibration
+from .compat import dataclass
 from .config import SafetySettings
 from .errors import LiveRuntimeError, SafetyStopError
 from .native import NativeExecutor
 from .videocad import Predictor
 
 
-@dataclass(slots=True)
+@dataclass
 class ExecutionSummary:
     mode: str
     run_dir: str

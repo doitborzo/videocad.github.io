@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from .compat import dataclass
 
 from .calibration import CanvasCalibration
 
@@ -28,7 +28,7 @@ KEY_BY_BIN = {
 }
 
 
-@dataclass(slots=True)
+@dataclass
 class RawModelAction:
     command: int
     params: list[int]
@@ -40,14 +40,14 @@ class RawModelAction:
         return [self.command, *params]
 
 
-@dataclass(slots=True)
+@dataclass
 class StepContext:
     step_index: int
     op: str
     pending_numeric_text: str | None = None
 
 
-@dataclass(slots=True)
+@dataclass
 class DecodedAction:
     kind: str
     point: tuple[float, float] | None = None
@@ -91,4 +91,3 @@ class ActionCodec:
             return DecodedAction(kind="type", text=text, raw=raw_action)
 
         return DecodedAction(kind="click", raw=raw_action)
-

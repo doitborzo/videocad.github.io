@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict
 from typing import Any
 
+from .compat import dataclass
 from .config import Rect, WindowGeometry
 from .errors import LiveRuntimeError
 
 
-@dataclass(slots=True)
+@dataclass
 class ScreenRect:
     x: float
     y: float
@@ -23,7 +24,7 @@ class ScreenRect:
         return self.y + self.height
 
 
-@dataclass(slots=True)
+@dataclass
 class CanvasCalibration:
     window: ScreenRect
     canvas: ScreenRect

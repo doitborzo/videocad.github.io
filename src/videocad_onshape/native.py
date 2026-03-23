@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import field
 from typing import Protocol
 import time
 
+from .compat import dataclass
 
 class NativeExecutor(Protocol):
     def permissions_ok(self) -> tuple[bool, str]:
@@ -13,7 +14,7 @@ class NativeExecutor(Protocol):
         ...
 
 
-@dataclass(slots=True)
+@dataclass
 class DryRunNativeExecutor:
     events: list[dict[str, object]] = field(default_factory=list)
 
@@ -25,7 +26,7 @@ class DryRunNativeExecutor:
         self.events.append(payload)
 
 
-@dataclass(slots=True)
+@dataclass
 class MacOSNativeExecutor:
     inter_action_delay_sec: float = 0.2
 
@@ -107,4 +108,3 @@ class MacOSNativeExecutor:
         event_up = Quartz.CGEventCreateKeyboardEvent(None, 0, False)
         Quartz.CGEventKeyboardSetUnicodeString(event_up, len(text), text)
         Quartz.CGEventPost(Quartz.kCGHIDEventTap, event_up)
-

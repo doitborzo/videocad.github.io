@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from io import BytesIO
 from pathlib import Path
 import base64
@@ -12,6 +11,7 @@ import numpy as np
 from PIL import Image
 
 from .action_codec import RawModelAction, StepContext
+from .compat import dataclass
 from .errors import ConfigurationError
 
 
@@ -19,7 +19,7 @@ def decode_image(encoded: str) -> Image.Image:
     return Image.open(BytesIO(base64.b64decode(encoded))).convert("L").resize((224, 224))
 
 
-@dataclass(slots=True)
+@dataclass
 class InferenceSettings:
     checkpoint_path: Path
     model_config_path: Path

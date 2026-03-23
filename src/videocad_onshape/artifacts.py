@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from .compat import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -21,7 +21,7 @@ def _json_default(value: Any) -> Any:
     raise TypeError(f"Cannot serialize {type(value)!r}")
 
 
-@dataclass(slots=True)
+@dataclass
 class ArtifactManager:
     run_dir: Path
     targets_dir: Path
@@ -82,4 +82,3 @@ class ArtifactManager:
     def write_summary(self, payload: dict[str, Any]) -> None:
         with self.summary_path.open("w", encoding="utf-8") as fh:
             json.dump(payload, fh, indent=2, default=_json_default)
-
